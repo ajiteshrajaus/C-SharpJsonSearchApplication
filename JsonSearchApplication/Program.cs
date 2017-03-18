@@ -17,7 +17,7 @@ namespace JsonSearchApplication
     {
         static void Main(string[] args)
         {
-            searchTheJsonFile("shared","false","users");
+            searchTheJsonFile("_id","1","users");
         }
 
         public static bool checkSearchableItems(String searchKey,String fileName)
@@ -56,20 +56,28 @@ namespace JsonSearchApplication
 
             if (checkSearchableItems(searchBy, objectToSearch))
             {
-                StreamReader jsonFile = new StreamReader(objectToSearch + ".json");
-                string userJson = jsonFile.ReadToEnd();
-                dynamic users = JsonConvert.DeserializeObject<dynamic>(userJson);
+                dynamic data = loadDataFromJsonFile(objectToSearch);
 
-                foreach (var user in users)
+                foreach (var contentData in data)
                 {
-                    if(user[searchBy] == searchTerm)
+                    if(contentData[searchBy] == searchTerm)
                     {
-                        Console.WriteLine(user);
+                        Console.WriteLine(contentData);
                     }
                     
                 }
 
             }
+
+        }
+
+        public static dynamic loadDataFromJsonFile(String fileName)
+        {
+            StreamReader jsonFile = new StreamReader(fileName + ".json");
+            string readContent = jsonFile.ReadToEnd();
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(readContent);
+
+            return data;
 
         }
     }
