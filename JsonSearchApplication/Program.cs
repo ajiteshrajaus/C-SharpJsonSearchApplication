@@ -17,7 +17,8 @@ namespace JsonSearchApplication
     {
         static void Main(string[] args)
         {
-            searchTheJsonFile("_id","1","users");
+            startApplication();
+            //searchTheJsonFile("_id","1","users");
         }
 
         public static bool checkSearchableItems(String searchKey,String fileName)
@@ -78,6 +79,51 @@ namespace JsonSearchApplication
             dynamic data = JsonConvert.DeserializeObject<dynamic>(readContent);
 
             return data;
+
+        }
+
+        public static void startSearch(String objectToSearch)
+        {
+
+        }
+
+        public static void startApplication()
+        {
+            Console.WriteLine("Welcome to Search Application in C#"+"\r\n"+"Type \"quit\" to exit at any time, press \'Enter\' to continue"+"\n\n\n\n");
+            Console.WriteLine("\t"+" Select search options:"+"\r\n\t"+"  * Press 1 to search Zendesk"+"\r\n\t"+"  * Press 2 to view list of searchable fields"+"\r\n\t"+"  * Type \'Quit\' to exit"+"\r\n\r\n");
+        }
+
+        public static void menuInput(String input)
+        {
+            switch (input)
+            {
+                case "1":
+                case "":
+                    Console.Clear();
+                    Console.WriteLine("Select 1) Users 2) Tickets or 3) Organizations 4)Exit out quickly\r\n");
+                    String userInput = Console.ReadLine();
+                    switch (userInput)
+                    {
+                        case "1":
+                            startSearch("users");
+                            break;
+                        case "2":
+                            startSearch("tickets");
+                            break;
+                        case "3":
+                            startSearch("organizations");
+                            break;
+                        case "4":
+                            break;
+                        default:
+                            Console.WriteLine("Incorrect input! Try again"+"\r\n");
+                            menuInput("");
+                            break;
+                    }
+                    break;
+
+            }
+
 
         }
     }
